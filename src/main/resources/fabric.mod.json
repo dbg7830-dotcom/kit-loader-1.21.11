@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "kitmod",
+  "version": "${version}",
+  "name": "KitMod",
+  "description": "Save and load inventory kits with a clean GUI. No server mod required to save.",
+  "authors": ["vulgarmc"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/kitmod/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.kitmod.KitModClient"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=${minecraft_version}",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

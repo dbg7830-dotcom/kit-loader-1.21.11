@@ -399,7 +399,9 @@ public class KitManagerScreen extends Screen {
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
-    }(int mouseX, int mouseY) {
+    }
+
+    private void handleIconPickerClick(int mouseX, int mouseY) {
         int cols = 9, size = 18, pad = 4, count = inventoryItems.size();
         int rows = (count + cols - 1) / cols;
         int pickerW = cols * (size + pad) + pad;

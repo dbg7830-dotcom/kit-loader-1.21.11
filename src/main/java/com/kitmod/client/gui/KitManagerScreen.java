@@ -7,8 +7,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.input.KeyEvent;
-import net.minecraft.client.gui.input.MouseButtonEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -374,13 +372,10 @@ public class KitManagerScreen extends Screen {
     }
 
     // -------------------------------------------------------------------------
-    // Input — 1.21.9+ uses MouseButtonEvent and KeyEvent objects
+    // Input
     // -------------------------------------------------------------------------
 
-    @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        double mouseX = event.mouseX();
-        double mouseY = event.mouseY();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
 
         if (state == State.NEW_KIT && pickingIcon) {
             handleIconPickerClick((int) mouseX, (int) mouseY);
@@ -402,7 +397,7 @@ public class KitManagerScreen extends Screen {
                 return true;
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return false;
     }
 
     private void handleIconPickerClick(int mouseX, int mouseY) {
@@ -434,9 +429,7 @@ public class KitManagerScreen extends Screen {
         return super.mouseScrolled(mouseX, mouseY, dx, dy);
     }
 
-    @Override
-    public boolean keyPressed(KeyEvent event) {
-        int keyCode = event.keyCode();
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == 256) { // ESC
             if (pickingIcon) { pickingIcon = false; return true; }
             if (state != State.LIST) { cancelFlow(); return true; }
@@ -445,7 +438,7 @@ public class KitManagerScreen extends Screen {
             commitSave();
             return true;
         }
-        return super.keyPressed(event);
+        return false;
     }
 
     // -------------------------------------------------------------------------
@@ -465,5 +458,7 @@ public class KitManagerScreen extends Screen {
         feedbackMessage = message;
         feedbackExpiry  = System.currentTimeMillis() + 2500;
     }
+
+    @Override
     public boolean isPauseScreen() { return false; }
 }

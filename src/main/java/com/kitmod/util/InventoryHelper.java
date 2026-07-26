@@ -4,22 +4,12 @@ import com.kitmod.data.Kit;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Map;
 
-/**
- * Snapshots and restores all 41 player inventory slots.
- *
- * Slot map:
- *   0-35  = main inventory (getItem/setItem)
- *   36    = boots     (EquipmentSlot.FEET)
- *   37    = leggings  (EquipmentSlot.LEGS)
- *   38    = chestplate(EquipmentSlot.CHEST)
- *   39    = helmet    (EquipmentSlot.HEAD)
- *   40    = offhand   (EquipmentSlot.OFFHAND)
- */
 public class InventoryHelper {
 
     private static final EquipmentSlot[] ARMOR_SLOTS = {
@@ -76,8 +66,8 @@ public class InventoryHelper {
     private static ItemStack deserialise(String nbtString,
             com.mojang.serialization.DynamicOps<net.minecraft.nbt.Tag> ops) {
         try {
-            // Use snbt parsing via CompoundTag — TagParser.parseCompound in 1.21.11
-            net.minecraft.nbt.CompoundTag nbt = net.minecraft.nbt.TagParser.parseCompound(nbtString);
+            // parseCompoundFully is the correct method name in 1.21.5+
+            var nbt = TagParser.parseCompoundFully(nbtString);
             return ItemStack.CODEC.parse(ops, nbt).result().orElse(ItemStack.EMPTY);
         } catch (Exception e) {
             return ItemStack.EMPTY;

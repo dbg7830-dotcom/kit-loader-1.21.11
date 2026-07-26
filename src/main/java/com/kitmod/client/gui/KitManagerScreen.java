@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -372,9 +372,8 @@ public class KitManagerScreen extends Screen {
     }
 
     // -------------------------------------------------------------------------
-    // Input — use double/double/int signatures which still exist in 1.21.11
-    // via the GuiEventListener interface. The new MouseButtonEvent/KeyEvent
-    // wrappers are only in NeoForge; vanilla Fabric Screen still exposes these.
+    // -------------------------------------------------------------------------
+    // Input
     // -------------------------------------------------------------------------
 
     @Override
@@ -400,9 +399,7 @@ public class KitManagerScreen extends Screen {
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    private void handleIconPickerClick(int mouseX, int mouseY) {
+    }(int mouseX, int mouseY) {
         int cols = 9, size = 18, pad = 4, count = inventoryItems.size();
         int rows = (count + cols - 1) / cols;
         int pickerW = cols * (size + pad) + pad;
@@ -452,7 +449,7 @@ public class KitManagerScreen extends Screen {
         if (kit.iconItemId == null || kit.iconItemId.isEmpty()) return new ItemStack(Items.CHEST);
         try {
             // get() returns Optional<Holder<Item>> in 1.21.11 — use getValue() safely
-            var optHolder = BuiltInRegistries.ITEM.get(ResourceLocation.parse(kit.iconItemId));
+            var optHolder = BuiltInRegistries.ITEM.get(Identifier.parse(kit.iconItemId));
             if (optHolder.isPresent()) return new ItemStack(optHolder.get().value());
         } catch (Exception ignored) {}
         return new ItemStack(Items.CHEST);

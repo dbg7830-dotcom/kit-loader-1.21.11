@@ -27,32 +27,71 @@ public class KitModClient implements ClientModInitializer {
             }
         });
 
-        ScreenEvents.AFTER_INIT.register(
-            (Minecraft client, Screen screen, int sw, int sh) -> {
-
-                if (screen instanceof KitManagerScreen s) {
+        ScreenEvents.AFTER_INIT.register(new ScreenEvents.AfterInit() {
+            @Override
+            public void afterInit(Minecraft client, Screen screen, int scaledWidth, int scaledHeight) {
+                if (screen instanceof KitManagerScreen kitScreen) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my, btn); });
+                        new ScreenMouseEvents.BeforeMouseClick() {
+                            @Override
+                            public void beforeMouseClick(Screen s, double mx, double my, int btn) {
+                                kitScreen.handleClick(mx, my, btn);
+                            }
+                        }
+                    );
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
-
-                } else if (screen instanceof MarketplaceScreen s) {
+                        new ScreenKeyboardEvents.BeforeKeyPress() {
+                            @Override
+                            public void beforeKeyPress(Screen s, int key, int scan, int mods) {
+                                kitScreen.handleKey(key);
+                            }
+                        }
+                    );
+                } else if (screen instanceof MarketplaceScreen mScreen) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
-
-                } else if (screen instanceof MarketplaceKitDetailScreen s) {
+                        new ScreenMouseEvents.BeforeMouseClick() {
+                            @Override
+                            public void beforeMouseClick(Screen s, double mx, double my, int btn) {
+                                mScreen.handleClick(mx, my);
+                            }
+                        }
+                    );
+                } else if (screen instanceof MarketplaceKitDetailScreen dScreen) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
+                        new ScreenMouseEvents.BeforeMouseClick() {
+                            @Override
+                            public void beforeMouseClick(Screen s, double mx, double my, int btn) {
+                                dScreen.handleClick(mx, my);
+                            }
+                        }
+                    );
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
-
-                } else if (screen instanceof MarketplaceUploadScreen s) {
+                        new ScreenKeyboardEvents.BeforeKeyPress() {
+                            @Override
+                            public void beforeKeyPress(Screen s, int key, int scan, int mods) {
+                                dScreen.handleKey(key);
+                            }
+                        }
+                    );
+                } else if (screen instanceof MarketplaceUploadScreen uScreen) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
+                        new ScreenMouseEvents.BeforeMouseClick() {
+                            @Override
+                            public void beforeMouseClick(Screen s, double mx, double my, int btn) {
+                                uScreen.handleClick(mx, my);
+                            }
+                        }
+                    );
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
+                        new ScreenKeyboardEvents.BeforeKeyPress() {
+                            @Override
+                            public void beforeKeyPress(Screen s, int key, int scan, int mods) {
+                                uScreen.handleKey(key);
+                            }
+                        }
+                    );
                 }
             }
-        );
+        });
     }
 }

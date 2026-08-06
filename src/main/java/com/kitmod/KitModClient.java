@@ -27,32 +27,30 @@ public class KitModClient implements ClientModInitializer {
             }
         });
 
-        // Explicit types on every lambda parameter are required —
-        // Java cannot infer them in nested lambda contexts.
         ScreenEvents.AFTER_INIT.register(
             (Minecraft client, Screen screen, int sw, int sh) -> {
 
                 if (screen instanceof KitManagerScreen s) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> s.handleClick(mx, my, btn));
+                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my, btn); });
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> s.handleKey(key));
+                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
 
                 } else if (screen instanceof MarketplaceScreen s) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> s.handleClick(mx, my));
+                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
 
                 } else if (screen instanceof MarketplaceKitDetailScreen s) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> s.handleClick(mx, my));
+                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> s.handleKey(key));
+                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
 
                 } else if (screen instanceof MarketplaceUploadScreen s) {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
-                        (Screen sc, double mx, double my, int btn) -> s.handleClick(mx, my));
+                        (Screen sc, double mx, double my, int btn) -> { s.handleClick(mx, my); });
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
-                        (Screen sc, int key, int scan, int mods) -> s.handleKey(key));
+                        (Screen sc, int key, int scan, int mods) -> { s.handleKey(key); });
                 }
             }
         );

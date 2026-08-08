@@ -12,8 +12,8 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.client.input.MouseInput;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
 
 public class KitModClient implements ClientModInitializer {
 
@@ -37,7 +37,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
                         new ScreenMouseEvents.BeforeMouseClick() {
                             @Override
-                            public void beforeMouseClick(Screen s, MouseInput event) {
+                            public void beforeMouseClick(Screen s, MouseButtonEvent event) {
                                 double mx = client.mouseHandler.xpos() * scaledWidth / client.getWindow().getWidth();
                                 double my = client.mouseHandler.ypos() * scaledHeight / client.getWindow().getHeight();
                                 kitScreen.handleClick(mx, my, event.button());
@@ -47,7 +47,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
                         new ScreenKeyboardEvents.BeforeKeyPress() {
                             @Override
-                            public void beforeKeyPress(Screen s, KeyInput event) {
+                            public void beforeKeyPress(Screen s, KeyEvent event) {
                                 kitScreen.handleKey(event.key());
                             }
                         }
@@ -57,7 +57,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
                         new ScreenMouseEvents.BeforeMouseClick() {
                             @Override
-                            public void beforeMouseClick(Screen s, MouseInput event) {
+                            public void beforeMouseClick(Screen s, MouseButtonEvent event) {
                                 double mx = client.mouseHandler.xpos() * scaledWidth / client.getWindow().getWidth();
                                 double my = client.mouseHandler.ypos() * scaledHeight / client.getWindow().getHeight();
                                 mScreen.handleClick(mx, my);
@@ -69,7 +69,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
                         new ScreenMouseEvents.BeforeMouseClick() {
                             @Override
-                            public void beforeMouseClick(Screen s, MouseInput event) {
+                            public void beforeMouseClick(Screen s, MouseButtonEvent event) {
                                 double mx = client.mouseHandler.xpos() * scaledWidth / client.getWindow().getWidth();
                                 double my = client.mouseHandler.ypos() * scaledHeight / client.getWindow().getHeight();
                                 dScreen.handleClick(mx, my);
@@ -79,7 +79,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
                         new ScreenKeyboardEvents.BeforeKeyPress() {
                             @Override
-                            public void beforeKeyPress(Screen s, KeyInput event) {
+                            public void beforeKeyPress(Screen s, KeyEvent event) {
                                 dScreen.handleKey(event.key());
                             }
                         }
@@ -89,7 +89,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenMouseEvents.beforeMouseClick(screen).register(
                         new ScreenMouseEvents.BeforeMouseClick() {
                             @Override
-                            public void beforeMouseClick(Screen s, MouseInput event) {
+                            public void beforeMouseClick(Screen s, MouseButtonEvent event) {
                                 double mx = client.mouseHandler.xpos() * scaledWidth / client.getWindow().getWidth();
                                 double my = client.mouseHandler.ypos() * scaledHeight / client.getWindow().getHeight();
                                 uScreen.handleClick(mx, my);
@@ -99,7 +99,7 @@ public class KitModClient implements ClientModInitializer {
                     ScreenKeyboardEvents.beforeKeyPress(screen).register(
                         new ScreenKeyboardEvents.BeforeKeyPress() {
                             @Override
-                            public void beforeKeyPress(Screen s, KeyInput event) {
+                            public void beforeKeyPress(Screen s, KeyEvent event) {
                                 uScreen.handleKey(event.key());
                             }
                         }
